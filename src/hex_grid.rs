@@ -27,7 +27,7 @@ pub const ROW_SIZE: Hex = 16;
 #[cfg(not(feature = "smaller-grid"))]
 pub const ROW_SIZE: Hex = 32;
 
-pub(crate) const GRID_SIZE: usize = ROW_SIZE as usize * ROW_SIZE as usize;
+pub const GRID_SIZE: usize = ROW_SIZE as usize * ROW_SIZE as usize;
 pub(crate) const GRID_MASK: Hex = (GRID_SIZE as Hex).wrapping_sub(1);
 // In the middle of the columns and the rows.
 // To slightly increase cache locality in the early game,

@@ -45,29 +45,29 @@ impl Node {
         Node((self.0 & !3) | clipped_height)
     }
 
-    pub(crate) fn color(self) -> Color {
+    pub fn color(self) -> Color {
         // Color enum is densely packed in 1 bit.
         unsafe { std::mem::transmute::<u8, Color>(self.0 >> 7) }
     }
 
-    pub(crate) fn bug(self) -> Bug {
+    pub fn bug(self) -> Bug {
         // Bug enum is densely packed in 3 bits.
         unsafe { std::mem::transmute::<u8, Bug>((self.0 >> 4) & 7) }
     }
 
-    pub(crate) fn bug_num(self) -> u8 {
+    pub fn bug_num(self) -> u8 {
         (self.0 >> 2) & 3
     }
 
-    pub(crate) fn occupied(self) -> bool {
+    pub fn occupied(self) -> bool {
         self.0 != 0
     }
 
-    pub(crate) fn is_stacked(self) -> bool {
+    pub fn is_stacked(self) -> bool {
         self.clipped_height() > 1
     }
 
-    pub(crate) fn clipped_height(self) -> u8 {
+    pub fn clipped_height(self) -> u8 {
         self.0 & 0x3
     }
 }
@@ -102,7 +102,7 @@ impl UnderNode {
 #[derive(Clone)]
 pub struct Board {
     // Indexed by Hex.
-    pub(crate) nodes: [Node; GRID_SIZE],
+    pub nodes: [Node; GRID_SIZE],
     // Tiles that are under other tiles.
     // Sorted by height (for each hex) and no gaps.
     underworld: [UnderNode; 8],
@@ -111,7 +111,7 @@ pub struct Board {
     pub(crate) queens: [Hex; 2],
     pub(crate) occupied_hexes: [Vec<Hex>; 2],
 
-    pub(crate) turn_num: u16,
+    pub turn_num: u16,
     zobrist_table: &'static [u64; GRID_SIZE * 2],
     zobrist_hash: u64,
     zobrist_history: Vec<u64>,

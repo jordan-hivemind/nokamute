@@ -105,7 +105,7 @@ impl Board {
         }
     }
 
-    pub(super) fn to_move_string(&self, m: crate::Turn) -> String {
+    pub fn to_move_string(&self, m: crate::Turn) -> String {
         let mut out = String::new();
         match m {
             Turn::Move(start, _) => {
@@ -341,7 +341,7 @@ impl Board {
         Ok(())
     }
 
-    pub(crate) fn undo_count(&mut self, count: usize) -> Result<()> {
+    pub fn undo_count(&mut self, count: usize) -> Result<()> {
         for _ in 0..count {
             let m = self.turn_history.last().copied().ok_or(UhpError::TooManyUndos)?;
             self.undo(m);
